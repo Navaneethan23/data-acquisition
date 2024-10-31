@@ -1,0 +1,38 @@
+//delayheader.c
+ #define RS 1<<17
+#define RW 1<<18
+#define E 1<<19
+#define LCD_D 0x0f<<20
+
+void delay_microsecond(unsigned int t)
+{
+  T0PR=15-1;
+	T0TCR=0X01;
+	while(T0TC<t);
+	T0TCR=0X03;														  
+	T0TCR=0x00;
+}
+void delay_millisecond(unsigned int t)
+{
+  T0PR=15000-1;
+	T0TCR=0X01;
+	while(T0TC<t);
+	T0TCR=0X03;
+	T0TCR=0x00;
+}
+void delay_second(unsigned int t)
+{
+  T0PR=15000000-1;
+	T0TCR=0X01;
+	while(T0TC<t);
+	T0TCR=0X03;
+	T0TCR=0x00;
+}
+void delay_ms(int ms)
+{
+	T0PR = 60000-1;
+	T0TCR = 0X01;
+	while(T0TC < ms);
+	T0TCR = 0X03;
+	T0TCR = 0X00;	
+}
